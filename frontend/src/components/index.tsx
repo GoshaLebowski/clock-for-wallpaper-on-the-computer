@@ -1,43 +1,81 @@
 import React, {useEffect, useState, JSX} from "react";
 
 export const Clock: React.FC<ClockProps> = ({clock}): JSX.Element => {
-    const [currentClock, setCurrentClock] = useState<IClock>(() => {
-        const savedClock = localStorage.getItem('clock');
-        return savedClock ? JSON.parse(savedClock) : clock;
+    const [currentClockLt, setCurrentClockLt] = useState<IClock>(() => {
+        const savedClockLt = localStorage.getItem('clockLt');
+        return savedClockLt ? JSON.parse(savedClockLt) : clock;
     });
 
+    const [currentClockMt, setCurrentClockMt] = useState<IClock>(() => {
+        const savedClockMt = localStorage.getItem('clockMt');
+        return savedClockMt ? JSON.parse(savedClockMt) : clock;
+    })
+
     useEffect(() => {
-        const interval = setInterval(() => {
-            const date = new Date();
-            const newClock: IClock = {
-                hour: date.getHours() % 12 || 12,
-                minute: date.getMinutes(),
-                second: date.getSeconds(),
-                period: date.getHours() < 12 ? 'am' : 'pm',
-                day: date.getDate(),
-                month: date.toLocaleDateString('en', { month: 'long' }).toLowerCase(),
-                year: date.getFullYear()
+        const intervalLt = setInterval(() => {
+            const dateLt = new Date();
+            const newClockLt: IClock = {
+                hour: dateLt.getHours() % 12 || 12,
+                minute: dateLt.getMinutes(),
+                second: dateLt.getSeconds(),
+                period: dateLt.getHours() < 12 ? 'am' : 'pm',
+                day: dateLt.getDate(),
+                month: dateLt.toLocaleDateString('en', {month: 'long'}).toLowerCase(),
+                year: dateLt.getFullYear()
             }
-            setCurrentClock(newClock);
-            localStorage.setItem('clock', JSON.stringify(newClock));
+            setCurrentClockLt(newClockLt);
+            localStorage.setItem('clockLt', JSON.stringify(newClockLt));
         }, 1000);
 
-        return () => clearInterval(interval);
+        const intervalMt = setInterval(() => {
+            const dateMt = new Date();
+            const newClockMt: IClock = {
+                hour: (dateMt.getHours() % 12) - 2 || 12,
+                minute: dateMt.getMinutes(),
+                second: dateMt.getSeconds(),
+                period: dateMt.getHours() < 12 ? 'am' : 'pm',
+                day: dateMt.getDate(),
+                month: dateMt.toLocaleDateString('en', {month: 'long'}).toLowerCase(),
+                year: dateMt.getFullYear()
+            }
+            setCurrentClockMt(newClockMt);
+            localStorage.setItem('clockMt', JSON.stringify(newClockMt));
+        }, 1000)
+
+        return () => {
+            clearInterval(intervalLt);
+            clearInterval(intervalMt);
+        };
     }, []);
 
     return (
-        <div>
-            <div>{`let clock = {`}</div>
+        <div className={'clock'}>
             <div>
-                <p>{`hour: ${currentClock.hour}`}</p>
-                <p>{`minute: ${currentClock.minute}`}</p>
-                <p>{`second: ${currentClock.second}`}</p>
-                <p>{`period: "${currentClock.period}"`}</p>
-                <p>{`day: "${currentClock.day}"`}</p>
-                <p>{`month: "${currentClock.month}"`}</p>
-                <p>{`year: ${currentClock.year}`}</p>
+                <div>{`let clock: localTime = {`}</div>
+                <div>
+                    <p>{`hour: ${currentClockLt.hour}`}</p>
+                    <p>{`minute: ${currentClockLt.minute}`}</p>
+                    <p>{`second: ${currentClockLt.second}`}</p>
+                    <p>{`period: "${currentClockLt.period}"`}</p>
+                    <p>{`day: "${currentClockLt.day}"`}</p>
+                    <p>{`month: "${currentClockLt.month}"`}</p>
+                    <p>{`year: ${currentClockLt.year}`}</p>
+                </div>
+                <div>{`}`}</div>
             </div>
-            <div>{`}`}</div>
+            <div>
+                <div>{`let clock: moscowTime = {`}</div>
+                <div>
+                    <p>{`hour: ${currentClockMt.hour}`}</p>
+                    <p>{`minute: ${currentClockMt.minute}`}</p>
+                    <p>{`second: ${currentClockMt.second}`}</p>
+                    <p>{`period: "${currentClockMt.period}"`}</p>
+                    <p>{`day: "${currentClockMt.day}"`}</p>
+                    <p>{`month: "${currentClockMt.month}"`}</p>
+                    <p>{`year: ${currentClockMt.year}`}</p>
+                </div>
+                <div>{`}`}</div>
+            </div>
         </div>
     );
 };
