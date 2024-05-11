@@ -1,0 +1,76 @@
+.clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .time {
+    display: flex;
+    width: 45%;
+    justify-content: space-between;
+
+    .position-left {
+      margin-left: 56px;
+    }
+  }
+}
+
+.moon {
+  color: #fff2c8;
+  text-shadow: 1px 1px 10px #ddab04;
+}
+
+.sun {
+  color: #e7ee74;
+  text-shadow: 1px 1px 10px #bc8f42;
+}
+
+.night {
+  color: #797d9b;
+}
+
+.star {
+  color: #9598b8;
+}
+
+.star-dark {
+  color: #a7a9c0;
+}
+
+.star-white {
+  color: #afb0bc;
+}
+
+.sky {
+  color: #d6d5d5;
+  text-shadow: 1px 1px 4px #d6d5d591;
+}
+
+.day {
+  color: #06adc3;
+}
+
+.lawn-day {
+  color: #05c605;
+}
+
+.lawn-day-dark {
+  color: #0a9c0a;
+}
+
+.lawn-day-dark-2x {
+  color: #098e09;
+}
+
+
+.lawn-night {
+  color: #039903;
+}
+
+.lawn-night-dark {
+  color: #058005;
+}
+
+.lawn-night-dark-2x {
+  color: #026c02;
+}

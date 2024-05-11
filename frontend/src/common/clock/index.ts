@@ -11,3 +11,10 @@ interface IClock {
     month: string | '',
     year: number | ''
 }
+
+interface TimeProps {
+    isNightLocalTime: boolean
+    isNightMoscowTime: boolean
+    currentClockLt: IClock
+    currentClockMt: IClock
+}
