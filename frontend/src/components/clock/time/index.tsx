@@ -5,85 +5,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
 
     return (
         <>
-            {(isNightLocalTime && (
-                <div className={'time-lt'}>
-                    <div>
-                        <span className={'sun'}>
-                            {`let `}
-                        </span>
-                        <span className={'sun'}>
-                            {`clock: `}
-                        </span>
-                        <span className={'day'}>
-                            {`local`}
-                        </span>
-                        <span className={'sky'}>
-                            {`Time = {`}
-                        </span>
-                    </div>
-                    <div className={'position-left'}>
-                        <p>
-                            <span className={'sun'}>
-                                {`hour: `}
-                            </span>
-                            <span className={'day'}>
-                                {currentClockLt.hour}
-                            </span>
-                        </p>
-                        <p>
-                            <span className={'day'}>
-                                {`minute: `}
-                            </span>
-                            <span className={'day'}>
-                                {currentClockLt.minute}
-                            </span>
-                        </p>
-                        <p>
-                            <span className={'day'}>
-                                {`second: `}
-                            </span>
-                            <span className={'day'}>
-                                {currentClockLt.second}
-                            </span>
-                        </p>
-                        <p>
-                            <span className={'day'}>
-                                {`period: `}
-                            </span>
-                            <span className={'day'}>
-                                {`"${currentClockLt.period}"`}
-                            </span>
-                        </p>
-                        <p>
-                            <span className={'day'}>
-                                {`day: `}
-                            </span>
-                            <span className={'day'}>
-                                {`"${currentClockLt.day}"`}
-                            </span>
-                        </p>
-                        <p>
-                            <span className={'lawn-day'}>
-                                {`month: `}
-                            </span>
-                            <span className={'lawn-day'}>
-                                {`"${currentClockLt.month}"`}
-                            </span>
-                        </p>
-                        <p>
-                            <span className={'lawn-day-dark'}>
-                                {`year: `}
-                            </span>
-                            <span className={'lawn-day-dark'}>
-                                {currentClockLt.year}
-                            </span>
-                        </p>
-                    </div>
-                    <div className={'lawn-day-dark-2x'}>
-                        {`}`}
-                    </div>
-                </div>
-            )) || (
+            {isNightLocalTime && (
                 <div className={'time-lt'}>
                     <div>
                         <span className={'moon'}>
@@ -164,9 +86,8 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                         {`}`}
                     </div>
                 </div>
-            )}
-            {(isNightMoscowTime && (
-                    <div className={'time-lt'}>
+            ) || (
+                <div className={'time-lt'}>
                     <div>
                         <span className={'sun'}>
                             {`let `}
@@ -175,7 +96,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                             {`clock: `}
                         </span>
                         <span className={'day'}>
-                            {`moscow`}
+                            {`local`}
                         </span>
                         <span className={'sky'}>
                             {`Time = {`}
@@ -187,7 +108,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                                 {`hour: `}
                             </span>
                             <span className={'day'}>
-                                {currentClockMt.hour}
+                                {currentClockLt.hour}
                             </span>
                         </p>
                         <p>
@@ -195,7 +116,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                                 {`minute: `}
                             </span>
                             <span className={'day'}>
-                                {currentClockMt.minute}
+                                {currentClockLt.minute}
                             </span>
                         </p>
                         <p>
@@ -203,7 +124,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                                 {`second: `}
                             </span>
                             <span className={'day'}>
-                                {currentClockMt.second}
+                                {currentClockLt.second}
                             </span>
                         </p>
                         <p>
@@ -211,7 +132,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                                 {`period: `}
                             </span>
                             <span className={'day'}>
-                                {`"${currentClockMt.period}"`}
+                                {`"${currentClockLt.period}"`}
                             </span>
                         </p>
                         <p>
@@ -219,7 +140,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                                 {`day: `}
                             </span>
                             <span className={'day'}>
-                                {`"${currentClockMt.day}"`}
+                                {`"${currentClockLt.day}"`}
                             </span>
                         </p>
                         <p>
@@ -227,7 +148,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                                 {`month: `}
                             </span>
                             <span className={'lawn-day'}>
-                                {`"${currentClockMt.month}"`}
+                                {`"${currentClockLt.month}"`}
                             </span>
                         </p>
                         <p>
@@ -235,7 +156,7 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                                 {`year: `}
                             </span>
                             <span className={'lawn-day-dark'}>
-                                {currentClockMt.year}
+                                {currentClockLt.year}
                             </span>
                         </p>
                     </div>
@@ -243,8 +164,10 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                         {`}`}
                     </div>
                 </div>
-            )) || (
-                <div className={'time-mt'}>
+            )}
+
+            {isNightMoscowTime && (
+                <div className={'time-lt'}>
                     <div>
                         <span className={'moon'}>
                             {`let `}
@@ -321,6 +244,84 @@ export const Time: React.FC<TimeProps> = (props: TimeProps): JSX.Element => {
                         </p>
                     </div>
                     <div className={'lawn-night-dark'}>
+                        {`}`}
+                    </div>
+                </div>
+            ) || (
+                <div className={'time-lt'}>
+                    <div>
+                        <span className={'sun'}>
+                            {`let `}
+                        </span>
+                        <span className={'sun'}>
+                            {`clock: `}
+                        </span>
+                        <span className={'day'}>
+                            {`moscow`}
+                        </span>
+                        <span className={'sky'}>
+                            {`Time = {`}
+                        </span>
+                    </div>
+                    <div className={'position-left'}>
+                        <p>
+                            <span className={'sun'}>
+                                {`hour: `}
+                            </span>
+                            <span className={'day'}>
+                                {currentClockMt.hour}
+                            </span>
+                        </p>
+                        <p>
+                            <span className={'day'}>
+                                {`minute: `}
+                            </span>
+                            <span className={'day'}>
+                                {currentClockMt.minute}
+                            </span>
+                        </p>
+                        <p>
+                            <span className={'day'}>
+                                {`second: `}
+                            </span>
+                            <span className={'day'}>
+                                {currentClockMt.second}
+                            </span>
+                        </p>
+                        <p>
+                            <span className={'day'}>
+                                {`period: `}
+                            </span>
+                            <span className={'day'}>
+                                {`"${currentClockMt.period}"`}
+                            </span>
+                        </p>
+                        <p>
+                            <span className={'day'}>
+                                {`day: `}
+                            </span>
+                            <span className={'day'}>
+                                {`"${currentClockMt.day}"`}
+                            </span>
+                        </p>
+                        <p>
+                            <span className={'lawn-day'}>
+                                {`month: `}
+                            </span>
+                            <span className={'lawn-day'}>
+                                {`"${currentClockMt.month}"`}
+                            </span>
+                        </p>
+                        <p>
+                            <span className={'lawn-day-dark'}>
+                                {`year: `}
+                            </span>
+                            <span className={'lawn-day-dark'}>
+                                {currentClockMt.year}
+                            </span>
+                        </p>
+                    </div>
+                    <div className={'lawn-day-dark-2x'}>
                         {`}`}
                     </div>
                 </div>

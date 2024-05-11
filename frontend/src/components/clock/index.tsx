@@ -1,8 +1,8 @@
-import React, { useEffect, useState, JSX } from "react";
+import React, {useEffect, useState, JSX} from "react";
 import '../../style/style.scss';
-import { Time } from "./time";
+import {Time} from "./time";
 
-export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
+export const Clock: React.FC<ClockProps> = ({clock}): JSX.Element => {
     const [currentClockLt, setCurrentClockLt] = useState<IClock>(() => {
         const savedClockLt = localStorage.getItem('clockLt');
         return savedClockLt ? JSON.parse(savedClockLt) : clock;
@@ -21,9 +21,8 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
             const dateLt = new Date();
             const hour = (dateLt.getHours() % 12) || 12;
             const period = dateLt.getHours() < 12 ? 'AM' : 'PM';
-
-            // Предположим, что до 6 утра и после 6 вечера всегда ночь
-            setIsNightLt((hour < 6 && period === 'AM') || (hour >= 6 && period === 'PM'));
+            const check = (hour <= 10 && period === 'AM') || (hour >= 6 && period === 'PM');
+            setIsNightLt(check);
         };
 
         const localInterval = setInterval(checkTimeOfDayLt, 180000);
@@ -33,12 +32,18 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
             const newDateMt = new Date(dateMt)
             const hour = (newDateMt.getHours() % 12) || 12
             const period = newDateMt.getHours() < 12 ? 'AM' : 'PM';
-
-            setIsNightMt((hour < 6 && period === 'AM') || (hour >= 6 && period === 'PM'))
+            setIsNightMt((hour < 10 && period === 'AM') || (hour >= 6 && period === 'PM'))
         }
 
         const moscowInterval = setInterval(checkTimeOfDayMt, 180000);
 
+        return () => {
+            clearInterval(localInterval);
+            clearInterval(moscowInterval);
+        };
+    }, []);
+
+    useEffect(() => {
         const intervalLt = setInterval(() => {
             const dateLt = new Date();
             const newClockLt: IClock = {
@@ -73,8 +78,6 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
         return () => {
             clearInterval(intervalLt);
             clearInterval(intervalMt);
-            clearInterval(localInterval);
-            clearInterval(moscowInterval);
         };
     }, []);
 
