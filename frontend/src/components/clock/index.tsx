@@ -20,7 +20,7 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
         const checkTimeOfDayLt = () => {
             const dateLt = new Date();
             const hour = dateLt.getHours();
-            const period = dateLt.getHours() < 12 ? 'AM' : 'PM';
+            const period = hour < 12 ? 'AM' : 'PM';
             let isNight;
 
             isNight = (hour >= 6 && period === 'PM') || (hour < 6 && period === 'AM');
@@ -33,7 +33,7 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
             const dateMt = new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"});
             const newDateMt = new Date(dateMt)
             const hour = newDateMt.getHours();
-            const period = newDateMt.getHours() < 12 ? 'AM' : 'PM';
+            const period = hour < 12 ? 'AM' : 'PM';
             let isNight;
 
             isNight = (hour >= 6 && period === 'PM') || (hour < 6 && period === 'AM');
