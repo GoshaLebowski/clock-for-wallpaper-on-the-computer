@@ -19,11 +19,12 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
     useEffect(() => {
         const checkTimeOfDayLt = () => {
             const dateLt = new Date();
-            const hour = (dateLt.getHours() % 12) || 12;
+            const hour = dateLt.getHours();
             const period = dateLt.getHours() < 12 ? 'AM' : 'PM';
+            let isNight;
 
-            // Предположим, что до 6 утра и после 6 вечера всегда ночь
-            setIsNightLt((hour < 6 && period === 'AM') || (hour >= 6 && period === 'PM'));
+            isNight = (hour >= 6 && period === 'PM') || (hour < 6 && period === 'AM');
+            setIsNightLt(isNight);
         };
 
         const localInterval = setInterval(checkTimeOfDayLt, 180000);
@@ -31,14 +32,23 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
         const checkTimeOfDayMt = () => {
             const dateMt = new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"});
             const newDateMt = new Date(dateMt)
-            const hour = (newDateMt.getHours() % 12) || 12
+            const hour = newDateMt.getHours();
             const period = newDateMt.getHours() < 12 ? 'AM' : 'PM';
+            let isNight;
 
-            setIsNightMt((hour < 6 && period === 'AM') || (hour >= 6 && period === 'PM'))
+            isNight = (hour >= 6 && period === 'PM') || (hour < 6 && period === 'AM');
+            setIsNightMt(isNight)
         }
 
         const moscowInterval = setInterval(checkTimeOfDayMt, 180000);
 
+        return () => {
+            clearInterval(localInterval);
+            clearInterval(moscowInterval);
+        }
+    }, []);
+
+    useEffect(() => {
         const intervalLt = setInterval(() => {
             const dateLt = new Date();
             const newClockLt: IClock = {
@@ -73,8 +83,6 @@ export const Clock: React.FC<ClockProps> = ({ clock }): JSX.Element => {
         return () => {
             clearInterval(intervalLt);
             clearInterval(intervalMt);
-            clearInterval(localInterval);
-            clearInterval(moscowInterval);
         };
     }, []);
 
